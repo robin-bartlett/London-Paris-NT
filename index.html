@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conference Name | Institution, Year</title>
+  <style>
+    /* ─── Colour palette – edit these to rebrand ─── */
+    :root {
+      --primary:   #2e4a5a;   /* dark teal-grey (bridge towers) */
+      --accent:    #4d7a8a;   /* mid teal (water reflections)  */
+      --light-bg:  #edf1f4;   /* pale misty grey-blue          */
+      --border:    #c4d0d8;   /* soft blue-grey                */
+      --text:      #222;
+      --muted:     #555;
+      --white:     #fff;
+      --max-width: 900px;
+    }
+
+    /* ─── Reset & base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      line-height: 1.7;
+      background: var(--white);
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    h1, h2, h3, h4 { font-family: "Palatino Linotype", Palatino, serif; color: var(--primary); }
+
+    /* ─── Navigation ─── */
+    nav {
+      background: var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,.25);
+    }
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    nav ul li a {
+      display: block;
+      padding: .85rem 1.1rem;
+      color: rgba(255,255,255,.88);
+      font-family: Arial, sans-serif;
+      font-size: .92rem;
+      letter-spacing: .03em;
+      transition: color .2s, background .2s;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: var(--white);
+      background: rgba(255,255,255,.12);
+      text-decoration: none;
+    }
+
+    /* ─── Banner ─── */
+    #banner {
+      width: 100%;
+      height: 20.75vw;
+      overflow: hidden;
+      background: var(--primary);
+      position: relative;
+    }
+    #banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    #banner-title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      text-align: center;
+      font-family: "Palatino Linotype", Palatino, serif;
+      font-size: 2vw;
+      color: rgba(255,255,255,.93);
+      letter-spacing: .04em;
+      font-style: italic;
+      text-shadow: 0 2px 8px rgba(0,0,0,.55);
+    }
+    /* Fallback when no image is supplied */
+    .banner-placeholder {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(135deg, var(--primary) 0%, #4d7a8a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .banner-placeholder h1 {
+      color: var(--white);
+      font-size: 2rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    /* ─── Page sections ─── */
+    .page-section {
+      display: none;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+    .page-section.active { display: block; }
+
+    .page-section h2 {
+      font-size: 1.7rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: .4rem;
+      margin-bottom: 1.5rem;
+    }
+    .page-section h3 {
+      font-size: 1.2rem;
+      margin: 1.8rem 0 .5rem;
+      color: var(--primary);
+    }
+    .page-section p { margin-bottom: 1rem; color: var(--text); }
+
+    /* ─── Info box ─── */
+    .info-box {
+      background: var(--light-bg);
+      border-left: 4px solid var(--primary);
+      padding: 1rem 1.4rem;
+      border-radius: 0 4px 4px 0;
+      margin: 1.2rem 0;
+    }
+    .info-box p { margin-bottom: .4rem; }
+    .info-box p:last-child { margin-bottom: 0; }
+
+    /* ─── Highlight / notice box ─── */
+    .notice {
+      background: #fff8e1;
+      border-left: 4px solid #f0a500;
+      padding: 1rem 1.4rem;
+      border-radius: 0 4px 4px 0;
+      margin: 1.2rem 0;
+      font-size: .95rem;
+    }
+
+    /* ─── Fee table ─── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.2rem 0;
+      font-size: .96rem;
+    }
+    th {
+      background: var(--primary);
+      color: var(--white);
+      padding: .6rem 1rem;
+      text-align: left;
+    }
+    td { padding: .55rem 1rem; border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: var(--light-bg); }
+
+    /* ─── Speaker grid ─── */
+    .speaker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+    .speaker-card {
+      background: var(--light-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .speaker-card .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--border);
+      margin: 0 auto .7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      color: var(--primary);
+      overflow: hidden;
+    }
+    .speaker-card .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .speaker-card strong { display: block; font-size: .95rem; color: var(--primary); }
+    .speaker-card span { font-size: .85rem; color: var(--muted); }
+
+    /* ─── Deadline list ─── */
+    .deadline-list { list-style: none; margin: .5rem 0 1rem; }
+    .deadline-list li {
+      display: flex;
+      gap: 1rem;
+      padding: .4rem 0;
+      border-bottom: 1px dotted var(--border);
+      font-size: .95rem;
+    }
+    .deadline-list li:last-child { border-bottom: none; }
+    .deadline-list .date {
+      min-width: 120px;
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    /* ─── Organiser list ─── */
+    .organiser-list {
+      columns: 2;
+      list-style: none;
+      margin: .5rem 0 1.5rem;
+    }
+    .organiser-list li {
+      padding: .3rem 0;
+      font-size: .96rem;
+      break-inside: avoid;
+    }
+    .organiser-list li span { color: var(--muted); font-size: .88rem; }
+
+    /* ─── Register button ─── */
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--white);
+      padding: .65rem 1.8rem;
+      border-radius: 4px;
+      font-family: Arial, sans-serif;
+      font-size: .95rem;
+      margin-top: .8rem;
+      transition: background .2s;
+    }
+    .btn:hover { background: #3a6070; text-decoration: none; }
+
+    /* ─── Sponsors ─── */
+    .sponsor-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+    .sponsor-row img {
+      height: 48px;
+      filter: grayscale(30%);
+      opacity: .85;
+    }
+    .sponsor-row img:hover { opacity: 1; filter: none; }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--primary);
+      color: rgba(255,255,255,.7);
+      text-align: center;
+      padding: 1.4rem 1rem;
+      font-size: .85rem;
+      font-family: Arial, sans-serif;
+    }
+    footer a { color: rgba(255,255,255,.85); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 600px) {
+      .organiser-list { columns: 1; }
+      .banner-placeholder h1 { font-size: 1.3rem; }
+      nav ul li a { padding: .7rem .7rem; font-size: .85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════
+       NAVIGATION — update href="#section-id" links
+  ════════════════════════════════════════════════════ -->
+  <nav>
+    <ul>
+      <li><a href="#home"         onclick="return show('home')"         class="active">Home</a></li>
+      <li><a href="#registration" onclick="return show('registration')"            >Registration</a></li>
+      <li><a href="#programme"    onclick="return show('programme')"               >Programme</a></li>
+      <li><a href="#logistics"    onclick="return show('logistics')"               >Logistics</a></li>
+      <li><a href="#organisation" onclick="return show('organisation')"            >Organisation</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════
+       BANNER — replace banner.jpg with your own image,
+       or remove the <img> to keep the gradient fallback
+  ════════════════════════════════════════════════════ -->
+  <div id="banner">
+    <img src="image.jpg" alt="Conference banner">
+    <div id="banner-title">John Coates London–Paris Number Theory Seminar</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════
+       HOME
+  ════════════════════════════════════════════════════ -->
+  <section id="home" class="page-section active">
+    <h2>Conference Full Name</h2>
+    <p>
+      <strong>Dates:</strong> DD–DD Month YYYY &nbsp;|&nbsp;
+      <strong>Location:</strong> University Name, City, Country
+    </p>
+
+    <p>
+      Welcome to the [N]th edition of <em>Conference Name</em>, an international meeting
+      devoted to [brief description of the mathematical area]. The conference brings together
+      leading researchers and early-career mathematicians to present recent advances, exchange
+      ideas, and foster new collaborations.
+    </p>
+
+    <h3>Invited Speakers</h3>
+    <div class="speaker-grid">
+      <!-- Duplicate .speaker-card blocks as needed -->
+      <div class="speaker-card">
+        <div class="avatar">&#9675;</div>
+        <strong>First Last</strong>
+        <span>University Name</span>
+      </div>
+      <div class="speaker-card">
+        <div class="avatar">&#9675;</div>
+        <strong>First Last</strong>
+        <span>University Name</span>
+      </div>
+      <div class="speaker-card">
+        <div class="avatar">&#9675;</div>
+        <strong>First Last</strong>
+        <span>University Name</span>
+      </div>
+      <div class="speaker-card">
+        <div class="avatar">&#9675;</div>
+        <strong>First Last</strong>
+        <span>University Name</span>
+      </div>
+      <div class="speaker-card">
+        <div class="avatar">&#9675;</div>
+        <strong>First Last</strong>
+        <span>University Name</span>
+      </div>
+      <div class="speaker-card">
+        <div class="avatar">&#9675;</div>
+        <strong>First Last</strong>
+        <span>University Name</span>
+      </div>
+    </div>
+
+    <h3>Funding</h3>
+    <p>
+      Limited financial support is available for [eligible group, e.g. UK-based doctoral students]
+      through [Funding Body]. Applications should be submitted by <strong>DD Month YYYY</strong>.
+      Details will be announced on this page.
+    </p>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       REGISTRATION
+  ════════════════════════════════════════════════════ -->
+  <section id="registration" class="page-section">
+    <h2>Registration</h2>
+
+    <p>
+      Please register your interest in attending the talks and conference dinner using the form below.
+    </p>
+
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6So0y7V7B1a8j0ltHJ19VLp-oDT4QOIa519_OBMiUdGcnXQ/viewform?usp=header" class="btn" target="_blank" rel="noopener">Register now &rarr;</a>
+
+    <p style="margin-top:1rem; font-size:.9rem; color:var(--muted);">
+      Registration closes <strong>DD Month YYYY</strong>.
+    </p>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       PROGRAMME
+  ════════════════════════════════════════════════════ -->
+  <section id="programme" class="page-section">
+    <h2>Programme</h2>
+
+    <p>The detailed programme will be posted here once it has been finalised.</p>
+
+    <div class="notice">
+      The schedule below is indicative and subject to change.
+    </div>
+
+    <!-- Day-by-day schedule — duplicate the block for each conference day -->
+    <h3>Monday, DD Month</h3>
+    <table>
+      <thead><tr><th style="width:120px">Time</th><th>Event</th><th>Speaker / Location</th></tr></thead>
+      <tbody>
+        <tr><td>09:00–09:30</td><td>Registration &amp; coffee</td><td>Foyer</td></tr>
+        <tr><td>09:30–10:30</td><td>Plenary lecture</td><td>First Last (Institution)</td></tr>
+        <tr><td>10:30–11:00</td><td>Coffee break</td><td></td></tr>
+        <tr><td>11:00–12:00</td><td>Contributed talks</td><td>Room TBC</td></tr>
+        <tr><td>12:00–13:30</td><td>Lunch</td><td></td></tr>
+        <tr><td>13:30–15:00</td><td>Contributed talks</td><td>Room TBC</td></tr>
+        <tr><td>15:00–15:30</td><td>Coffee break</td><td></td></tr>
+        <tr><td>15:30–17:00</td><td>Contributed talks</td><td>Room TBC</td></tr>
+        <tr><td>18:30–20:30</td><td>Welcome reception</td><td>Venue TBC</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Tuesday – Friday</h3>
+    <p>Full schedule to be announced.</p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       LOGISTICS
+  ════════════════════════════════════════════════════ -->
+  <section id="logistics" class="page-section">
+    <h2>Logistics</h2>
+
+    <h3>Venue</h3>
+    <div class="info-box">
+      <p><strong>Main venue:</strong> [Building Name], [University Name]</p>
+      <p><strong>Address:</strong> Street, City, Postcode, Country</p>
+      <p>
+        <a href="https://maps.google.com/?q=University+Name" target="_blank" rel="noopener">
+          View on Google Maps &rarr;
+        </a>
+      </p>
+    </div>
+
+    <h3>Getting There</h3>
+
+    <h4 style="margin:.8rem 0 .3rem; color:var(--muted);">By Train</h4>
+    <p>
+      [City] is served by direct rail connections from [List major cities].
+      Tickets can be booked via
+      <a href="https://www.nationalrail.co.uk" target="_blank" rel="noopener">National Rail</a>.
+    </p>
+
+    <h4 style="margin:.8rem 0 .3rem; color:var(--muted);">By Air</h4>
+    <p>
+      The nearest airports are:
+    </p>
+    <ul style="margin-left:1.5rem; margin-bottom:1rem;">
+      <li><strong>[Airport Code] – [Airport Name]:</strong> [transfer instructions]</li>
+      <li><strong>[Airport Code] – [Airport Name]:</strong> [transfer instructions]</li>
+    </ul>
+
+    <h3>Visa &amp; Travel Authorisation</h3>
+    <p>
+      Participants travelling from outside [Country] should check
+      <a href="https://www.gov.uk/standard-visitor" target="_blank" rel="noopener">
+        official guidance
+      </a>
+      regarding visa requirements. Some nationalities may require an Electronic Travel
+      Authorisation before arrival. If you need an official invitation letter for visa
+      purposes, please contact the organisers.
+    </p>
+
+    <h3>Local Information</h3>
+    <p>
+      [Add local tips: recommended restaurants, transport within the city, accessibility
+      information, childcare, etc.]
+    </p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       ORGANISATION
+  ════════════════════════════════════════════════════ -->
+  <section id="organisation" class="page-section">
+    <h2>Organisation</h2>
+
+    <h3>Local Organising Committee</h3>
+    <ul class="organiser-list">
+      <li>First Last <span>– University Name</span></li>
+      <li>First Last <span>– University Name</span></li>
+      <li>First Last <span>– University Name</span></li>
+      <li>First Last <span>– University Name</span></li>
+    </ul>
+
+    <h3>Scientific Committee</h3>
+    <ul class="organiser-list">
+      <li>First Last <span>– University Name</span></li>
+      <li>First Last <span>– University Name</span></li>
+      <li>First Last <span>– University Name</span></li>
+      <li>First Last <span>– University Name</span></li>
+      <li>First Last <span>– University Name</span></li>
+      <li>First Last <span>– University Name</span></li>
+    </ul>
+
+    <h3>Contact</h3>
+    <p>
+      For general enquiries please email
+      <a href="mailto:conference@example.ac.uk">conference@example.ac.uk</a>.
+    </p>
+
+    <h3>Sponsors &amp; Supporters</h3>
+    <div class="sponsor-row">
+      <span style="color:var(--muted); font-size:.9rem;">[Sponsor logos will appear here]</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════════ -->
+  <footer>
+    <p>
+      Conference Name &mdash; DD&ndash;DD Month YYYY &mdash; University Name, City
+    </p>
+    <p style="margin-top:.4rem;">
+      Contact: <a href="mailto:conference@example.ac.uk">conference@example.ac.uk</a>
+    </p>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════════════
+       SIMPLE TAB SWITCHING (no framework required)
+  ════════════════════════════════════════════════════ -->
+  <script>
+    function show(id) {
+      // Hide all sections
+      document.querySelectorAll('.page-section').forEach(function(s) {
+        s.classList.remove('active');
+      });
+      // Remove active from all nav links
+      document.querySelectorAll('nav a').forEach(function(a) {
+        a.classList.remove('active');
+      });
+      // Show the target section
+      var target = document.getElementById(id);
+      if (target) target.classList.add('active');
+      // Mark the clicked nav link as active
+      var link = document.querySelector('nav a[href="#' + id + '"]');
+      if (link) link.classList.add('active');
+      // Prevent default anchor scroll
+      return false;
+    }
+
+    // On page load: check URL hash and activate the right section
+    (function () {
+      var hash = window.location.hash.replace('#', '');
+      var valid = ['home', 'registration', 'programme', 'logistics', 'organisation'];
+      if (hash && valid.indexOf(hash) !== -1) {
+        show(hash);
+      }
+    })();
+  </script>
+</body>
+</html>
