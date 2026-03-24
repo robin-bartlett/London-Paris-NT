@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conference Name | Institution, Year</title>
+  <title>Geometric Perspectives on the Langlands Programme | QMUL, 2025</title>
   <style>
     /* ─── Colour palette – edit these to rebrand ─── */
     :root {
@@ -165,38 +165,41 @@
     }
     td { padding: .55rem 1rem; border-bottom: 1px solid var(--border); }
     tr:last-child td { border-bottom: none; }
-    tr:nth-child(even) td { background: var(--light-bg); }
+    tr:nth-child(even):not(.talk-row):not(.talk-details) td { background: var(--light-bg); }
+    .break-row td { background: var(--light-bg); color: var(--muted); font-style: italic; }
+    #programme table td:first-child { width: 120px; min-width: 120px; white-space: nowrap; }
 
     /* ─── Speaker grid ─── */
     .speaker-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 1.2rem;
       margin-top: 1rem;
     }
     .speaker-card {
+      width: 280px;
+      flex-shrink: 0;
       background: var(--light-bg);
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 1rem;
+      padding: 1.3rem;
       text-align: center;
     }
     .speaker-card .avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: var(--border);
+      width: 180px;
+      height: 90px;
       margin: 0 auto .7rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.6rem;
-      color: var(--primary);
-      overflow: hidden;
+      background: var(--primary);
+      border-radius: 4px;
+      padding: 10px;
     }
-    .speaker-card .avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .speaker-card strong { display: block; font-size: .95rem; color: var(--primary); }
-    .speaker-card span { font-size: .85rem; color: var(--muted); }
+    .speaker-card .avatar img { width: 100%; height: 100%; object-fit: contain; }
+    .speaker-card strong { display: block; font-size: 1.05rem; color: var(--primary); }
+    .speaker-card span { font-size: .92rem; color: var(--muted); }
 
     /* ─── Deadline list ─── */
     .deadline-list { list-style: none; margin: .5rem 0 1rem; }
@@ -241,6 +244,29 @@
     }
     .btn:hover { background: #3a6070; text-decoration: none; }
 
+    /* ─── Talk row styling ─── */
+    .talk-row { cursor: pointer; }
+    .talk-row:hover { background: #f0f5f8; }
+    .talk-row.has-details { cursor: pointer; }
+    .talk-details {
+      display: none;
+      background: var(--light-bg);
+      border-top: 1px solid var(--border);
+      font-size: .95rem;
+    }
+    .talk-details td {
+      padding: 0 !important;
+      background: var(--light-bg) !important;
+    }
+    .talk-details-inner {
+      padding: 1rem 1.5rem;
+      border-left: 3px solid var(--accent);
+      margin: .5rem 1rem .75rem 1rem;
+    }
+    .talk-details.show { display: table-row; }
+    .talk-details h4 { margin-top: 0; margin-bottom: .4rem; font-size: 1rem; }
+    .talk-details p { margin-bottom: .4rem; }
+
     /* ─── Sponsors ─── */
     .sponsor-row {
       display: flex;
@@ -250,7 +276,7 @@
       margin-top: 1rem;
     }
     .sponsor-row img {
-      height: 48px;
+      height: 80px;
       filter: grayscale(30%);
       opacity: .85;
     }
@@ -303,60 +329,93 @@
        HOME
   ════════════════════════════════════════════════════ -->
   <section id="home" class="page-section active">
-    <h2>Conference Full Name</h2>
+    <h2>Geometric Perspectives on the Langlands Programme</h2>
     <p>
-      <strong>Dates:</strong> DD–DD Month YYYY &nbsp;|&nbsp;
-      <strong>Location:</strong> University Name, City, Country
+      <strong>Dates:</strong> 16–17 June 2025 &nbsp;|&nbsp;
+      <strong>Location:</strong> Queen Mary University of London
     </p>
 
     <p>
-      Welcome to the [N]th edition of <em>Conference Name</em>, an international meeting
-      devoted to [brief description of the mathematical area]. The conference brings together
-      leading researchers and early-career mathematicians to present recent advances, exchange
-      ideas, and foster new collaborations.
+      The 39th meeting of the John Coates London–Paris Number Theory Seminar will take place
+      16–17 June 2025 at Queen Mary University of London. The meeting will explore recent advances
+      around geometric perspectives on the Langlands programme.
     </p>
 
     <h3>Invited Speakers</h3>
+
     <div class="speaker-grid">
-      <!-- Duplicate .speaker-card blocks as needed -->
       <div class="speaker-card">
-        <div class="avatar">&#9675;</div>
-        <strong>First Last</strong>
-        <span>University Name</span>
+        <a href="https://sites.google.com/view/acampo/home" target="_blank" rel="noopener">
+          <div class="avatar"><img src="logos/ihes-logo.png" alt="IHES"></div>
+          <strong>Lambert A'Campo</strong>
+        </a>
+        <span>IHES</span>
       </div>
       <div class="speaker-card">
-        <div class="avatar">&#9675;</div>
-        <strong>First Last</strong>
-        <span>University Name</span>
+        <a href="https://robin-bartlett.github.io/" target="_blank" rel="noopener">
+          <div class="avatar"><img src="logos/qmul-logo.png" alt="QMUL"></div>
+          <strong>Robin Bartlett</strong>
+        </a>
+        <span>Queen Mary University of London</span>
       </div>
       <div class="speaker-card">
-        <div class="avatar">&#9675;</div>
-        <strong>First Last</strong>
-        <span>University Name</span>
+        <div class="avatar"><img src="logos/paris-nord-logo.png" alt="Paris Nord"></div>
+        <strong>Lucrezia Bertoletti</strong>
+        <span>Universit&eacute; Sorbonne Paris Nord</span>
       </div>
       <div class="speaker-card">
-        <div class="avatar">&#9675;</div>
-        <strong>First Last</strong>
-        <span>University Name</span>
+        <a href="https://webusers.imj-prg.fr/~jean-francois.dat/" target="_blank" rel="noopener">
+          <div class="avatar"><img src="logos/sorbonne-logo.png" alt="Sorbonne"></div>
+          <strong>Jean-Fran&ccedil;ois Dat</strong>
+        </a>
+        <span>Sorbonne Universit&eacute; (IMJ-PRG)</span>
       </div>
       <div class="speaker-card">
-        <div class="avatar">&#9675;</div>
-        <strong>First Last</strong>
-        <span>University Name</span>
+        <a href="https://www.kcl.ac.uk/people/andrea-dotto" target="_blank" rel="noopener">
+          <div class="avatar"><img src="logos/kcl-logo.png" alt="KCL"></div>
+          <strong>Andrea Dotto</strong>
+        </a>
+        <span>King's College London</span>
       </div>
       <div class="speaker-card">
-        <div class="avatar">&#9675;</div>
-        <strong>First Last</strong>
-        <span>University Name</span>
+        <div class="avatar"><img src="logos/qmul-logo.png" alt="QMUL"></div>
+        <strong>Miriam Norris</strong>
+        <span>Queen Mary University of London</span>
       </div>
+      <div class="speaker-card">
+        <a href="https://perso.ens-lyon.fr/sandra.rozensztajn/" target="_blank" rel="noopener">
+          <div class="avatar"><img src="logos/ens-lyon-logo.png" alt="ENS de Lyon"></div>
+          <strong>Sandra Rozensztajn</strong>
+        </a>
+        <span>ENS de Lyon</span>
+      </div>
+      <div class="speaker-card">
+        <a href="https://www.dpmms.cam.ac.uk/~rz240/" target="_blank" rel="noopener">
+          <div class="avatar"><img src="logos/cambridge-logo.png" alt="Cambridge"></div>
+          <strong>Rong Zhou</strong>
+        </a>
+        <span>University of Cambridge</span>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <p>
+        The John Coates London-Paris Number Theory Seminar is a biannual event, meeting in London in the Spring and in Paris in the Autumn. Each meeting is typically spread over a Monday afternoon and Tuesday morning, and is devoted to a particular theme related to number theory in a broad sense. The seminar was renamed in the honour of John Coates (26/1/1945 - 9/5/2022) in 2023, in recognition of the crucial role he played in the founding of the seminar in 2006.
+      </p>
+      <p>
+        <a href="https://www.imo.universite-paris-saclay.fr/~matthew.morrow/PLNTS/PLNTSarchive.html" target="_blank" rel="noopener">View previous meetings →</a>
+      </p>
     </div>
 
     <h3>Funding</h3>
     <p>
-      Limited financial support is available for [eligible group, e.g. UK-based doctoral students]
-      through [Funding Body]. Applications should be submitted by <strong>DD Month YYYY</strong>.
-      Details will be announced on this page.
+      This meeting is generously supported by a Heilbronn Small Grants Scheme award and the
+      London Mathematical Society.
     </p>
+    <div class="sponsor-row">
+      <img src="heilbronn-logo.png" alt="Heilbronn Institute for Mathematical Research">
+      <img src="lms-logo.png" alt="London Mathematical Society" style="background:#1a2d5a; padding:8px; border-radius:4px;">
+    </div>
 
   </section>
 
@@ -372,10 +431,6 @@
 
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6So0y7V7B1a8j0ltHJ19VLp-oDT4QOIa519_OBMiUdGcnXQ/viewform?usp=header" class="btn" target="_blank" rel="noopener">Register now &rarr;</a>
 
-    <p style="margin-top:1rem; font-size:.9rem; color:var(--muted);">
-      Registration closes <strong>DD Month YYYY</strong>.
-    </p>
-
   </section>
 
   <!-- ═══════════════════════════════════════════════════
@@ -384,31 +439,44 @@
   <section id="programme" class="page-section">
     <h2>Programme</h2>
 
-    <p>The detailed programme will be posted here once it has been finalised.</p>
+    <p>Click on a speaker's name to view the talk title and abstract.</p>
+    <p>The venue for the talks is to be announced. Coffee breaks will be held in the foyer of the Queen Mary Mathematics Building. The venue for the seminar dinner is to be announced.</p>
 
-    <div class="notice">
-      The schedule below is indicative and subject to change.
-    </div>
-
-    <!-- Day-by-day schedule — duplicate the block for each conference day -->
-    <h3>Monday, DD Month</h3>
+    <!-- Monday, 16 June -->
+    <h3>Monday, 16 June</h3>
     <table>
-      <thead><tr><th style="width:120px">Time</th><th>Event</th><th>Speaker / Location</th></tr></thead>
+      <thead><tr><th style="width:120px">Time</th><th>Speaker</th><th>Title</th></tr></thead>
       <tbody>
-        <tr><td>09:00–09:30</td><td>Registration &amp; coffee</td><td>Foyer</td></tr>
-        <tr><td>09:30–10:30</td><td>Plenary lecture</td><td>First Last (Institution)</td></tr>
-        <tr><td>10:30–11:00</td><td>Coffee break</td><td></td></tr>
-        <tr><td>11:00–12:00</td><td>Contributed talks</td><td>Room TBC</td></tr>
-        <tr><td>12:00–13:30</td><td>Lunch</td><td></td></tr>
-        <tr><td>13:30–15:00</td><td>Contributed talks</td><td>Room TBC</td></tr>
-        <tr><td>15:00–15:30</td><td>Coffee break</td><td></td></tr>
-        <tr><td>15:30–17:00</td><td>Contributed talks</td><td>Room TBC</td></tr>
-        <tr><td>18:30–20:30</td><td>Welcome reception</td><td>Venue TBC</td></tr>
+        <tr class="talk-row has-details" onclick="toggleTalkDetails(this)"><td>09:00–10:00</td><td>Andrea Dotto</td><td><em>TBA</em></td></tr>
+        <tr class="talk-details"><td colspan="3"><div class="talk-details-inner"><p><strong>Title:</strong> To be announced shortly.</p><p><strong>Abstract:</strong> To be announced shortly.</p></div></td></tr>
+        <tr class="break-row"><td>10:00–10:30</td><td colspan="2">Coffee Break</td></tr>
+        <tr class="talk-row has-details" onclick="toggleTalkDetails(this)"><td>10:30–11:30</td><td>Lucrezia Bertoletti</td><td><em>TBA</em></td></tr>
+        <tr class="talk-details"><td colspan="3"><div class="talk-details-inner"><p><strong>Title:</strong> To be announced shortly.</p><p><strong>Abstract:</strong> To be announced shortly.</p></div></td></tr>
+        <tr class="talk-row has-details" onclick="toggleTalkDetails(this)"><td>11:40–12:40</td><td>Sandra Rozensztajn</td><td><em>TBA</em></td></tr>
+        <tr class="talk-details"><td colspan="3"><div class="talk-details-inner"><p><strong>Title:</strong> To be announced shortly.</p><p><strong>Abstract:</strong> To be announced shortly.</p></div></td></tr>
+        <tr class="break-row"><td>12:40–14:30</td><td colspan="2">Lunch</td></tr>
+        <tr class="talk-row has-details" onclick="toggleTalkDetails(this)"><td>14:30–15:30</td><td>Miriam Norris</td><td><em>TBA</em></td></tr>
+        <tr class="talk-details"><td colspan="3"><div class="talk-details-inner"><p><strong>Title:</strong> To be announced shortly.</p><p><strong>Abstract:</strong> To be announced shortly.</p></div></td></tr>
+        <tr class="talk-row has-details" onclick="toggleTalkDetails(this)"><td>15:40–16:40</td><td>Jean-François Dat</td><td><em>TBA</em></td></tr>
+        <tr class="talk-details"><td colspan="3"><div class="talk-details-inner"><p><strong>Title:</strong> To be announced shortly.</p><p><strong>Abstract:</strong> To be announced shortly.</p></div></td></tr>
+        <tr class="break-row"><td>19:00</td><td colspan="2">Seminar Dinner</td></tr>
       </tbody>
     </table>
 
-    <h3>Tuesday – Friday</h3>
-    <p>Full schedule to be announced.</p>
+    <!-- Tuesday, 17 June -->
+    <h3>Tuesday, 17 June</h3>
+    <table>
+      <thead><tr><th style="width:120px">Time</th><th>Speaker</th><th>Title</th></tr></thead>
+      <tbody>
+        <tr class="talk-row has-details" onclick="toggleTalkDetails(this)"><td>09:00–10:00</td><td>Robin Bartlett</td><td><em>TBA</em></td></tr>
+        <tr class="talk-details"><td colspan="3"><div class="talk-details-inner"><p><strong>Title:</strong> To be announced shortly.</p><p><strong>Abstract:</strong> To be announced shortly.</p></div></td></tr>
+        <tr class="break-row"><td>10:00–10:30</td><td colspan="2">Coffee Break</td></tr>
+        <tr class="talk-row has-details" onclick="toggleTalkDetails(this)"><td>10:30–11:30</td><td>Lambert A'Campo</td><td><em>TBA</em></td></tr>
+        <tr class="talk-details"><td colspan="3"><div class="talk-details-inner"><p><strong>Title:</strong> To be announced shortly.</p><p><strong>Abstract:</strong> To be announced shortly.</p></div></td></tr>
+        <tr class="talk-row has-details" onclick="toggleTalkDetails(this)"><td>11:40–12:40</td><td>Rong Zhou</td><td><em>TBA</em></td></tr>
+        <tr class="talk-details"><td colspan="3"><div class="talk-details-inner"><p><strong>Title:</strong> To be announced shortly.</p><p><strong>Abstract:</strong> To be announced shortly.</p></div></td></tr>
+      </tbody>
+    </table>
   </section>
 
   <!-- ═══════════════════════════════════════════════════
@@ -419,49 +487,18 @@
 
     <h3>Venue</h3>
     <div class="info-box">
-      <p><strong>Main venue:</strong> [Building Name], [University Name]</p>
-      <p><strong>Address:</strong> Street, City, Postcode, Country</p>
+      <p><strong>School of Mathematical Sciences</strong><br>
+        Queen Mary University of London<br>
+        Mile End Road<br>
+        London E1 4NS
+      </p>
       <p>
-        <a href="https://maps.google.com/?q=University+Name" target="_blank" rel="noopener">
-          View on Google Maps &rarr;
-        </a>
+        The School of Mathematical Sciences is based in the Mathematical Sciences Building on Queen Mary University of London's Mile End campus.
+      </p>
+      <p>
+        <a href="https://www.qmul.ac.uk/about/howtofindus/mileend/" target="_blank" rel="noopener">How to find us &rarr;</a>
       </p>
     </div>
-
-    <h3>Getting There</h3>
-
-    <h4 style="margin:.8rem 0 .3rem; color:var(--muted);">By Train</h4>
-    <p>
-      [City] is served by direct rail connections from [List major cities].
-      Tickets can be booked via
-      <a href="https://www.nationalrail.co.uk" target="_blank" rel="noopener">National Rail</a>.
-    </p>
-
-    <h4 style="margin:.8rem 0 .3rem; color:var(--muted);">By Air</h4>
-    <p>
-      The nearest airports are:
-    </p>
-    <ul style="margin-left:1.5rem; margin-bottom:1rem;">
-      <li><strong>[Airport Code] – [Airport Name]:</strong> [transfer instructions]</li>
-      <li><strong>[Airport Code] – [Airport Name]:</strong> [transfer instructions]</li>
-    </ul>
-
-    <h3>Visa &amp; Travel Authorisation</h3>
-    <p>
-      Participants travelling from outside [Country] should check
-      <a href="https://www.gov.uk/standard-visitor" target="_blank" rel="noopener">
-        official guidance
-      </a>
-      regarding visa requirements. Some nationalities may require an Electronic Travel
-      Authorisation before arrival. If you need an official invitation letter for visa
-      purposes, please contact the organisers.
-    </p>
-
-    <h3>Local Information</h3>
-    <p>
-      [Add local tips: recommended restaurants, transport within the city, accessibility
-      information, childcare, etc.]
-    </p>
   </section>
 
   <!-- ═══════════════════════════════════════════════════
@@ -470,34 +507,30 @@
   <section id="organisation" class="page-section">
     <h2>Organisation</h2>
 
-    <h3>Local Organising Committee</h3>
+    <h3>Local Organisers</h3>
     <ul class="organiser-list">
-      <li>First Last <span>– University Name</span></li>
-      <li>First Last <span>– University Name</span></li>
-      <li>First Last <span>– University Name</span></li>
-      <li>First Last <span>– University Name</span></li>
+      <li>Robin Bartlett <span>– QMUL</span></li>
+      <li>Miriam Norris <span>– QMUL</span></li>
+      <li>Shu Sasaki <span>– QMUL</span></li>
     </ul>
 
-    <h3>Scientific Committee</h3>
+    <h3>LPNTS/PLNTS Committee</h3>
     <ul class="organiser-list">
-      <li>First Last <span>– University Name</span></li>
-      <li>First Last <span>– University Name</span></li>
-      <li>First Last <span>– University Name</span></li>
-      <li>First Last <span>– University Name</span></li>
-      <li>First Last <span>– University Name</span></li>
-      <li>First Last <span>– University Name</span></li>
+      <li>G. Boxer <span>– ICL</span></li>
+      <li>V. Dokchitser <span>– UCL</span></li>
+      <li>L. Garcia Martinez <span>– UCL</span></li>
+      <li>G. Grossi <span>– Paris XIII</span></li>
+      <li>M. Hindry <span>– Paris VII</span></li>
+      <li>M. Morrow <span>– Orsay</span></li>
+      <li>B. Romano <span>– KCL</span></li>
+      <li>S. Sasaki <span>– QMUL</span></li>
     </ul>
 
     <h3>Contact</h3>
     <p>
       For general enquiries please email
-      <a href="mailto:conference@example.ac.uk">conference@example.ac.uk</a>.
+      <a href="mailto:s.sasaki@qmul.ac.uk">s.sasaki@qmul.ac.uk</a>.
     </p>
-
-    <h3>Sponsors &amp; Supporters</h3>
-    <div class="sponsor-row">
-      <span style="color:var(--muted); font-size:.9rem;">[Sponsor logos will appear here]</span>
-    </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════
@@ -505,10 +538,10 @@
   ════════════════════════════════════════════════════ -->
   <footer>
     <p>
-      Conference Name &mdash; DD&ndash;DD Month YYYY &mdash; University Name, City
+      John Coates London&ndash;Paris Number Theory Seminar &mdash; 16&ndash;17 June 2025 &mdash; Queen Mary University of London
     </p>
     <p style="margin-top:.4rem;">
-      Contact: <a href="mailto:conference@example.ac.uk">conference@example.ac.uk</a>
+      Contact: <a href="mailto:s.sasaki@qmul.ac.uk">s.sasaki@qmul.ac.uk</a>
     </p>
   </footer>
 
@@ -533,6 +566,14 @@
       if (link) link.classList.add('active');
       // Prevent default anchor scroll
       return false;
+    }
+
+    // Toggle talk details dropdown
+    function toggleTalkDetails(row) {
+      var detailsRow = row.nextElementSibling;
+      if (detailsRow && detailsRow.classList.contains('talk-details')) {
+        detailsRow.classList.toggle('show');
+      }
     }
 
     // On page load: check URL hash and activate the right section
