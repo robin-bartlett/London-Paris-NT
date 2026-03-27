@@ -341,7 +341,7 @@
       around geometric perspectives on the Langlands programme.
     </p>
 
-    <p>Limited financial support is available for early career researchers. Please contact <a href="mailto:s.sasaki@qmul.ac.uk">s.sasaki@qmul.ac.uk</a>.</p>
+    <p>Limited financial support is available for early career researchers. Please contact <a id="email-ecr" href="#">loading…</a>.</p>
 
     <h3>Invited Speakers</h3>
 
@@ -533,7 +533,7 @@
     <h3>Contact</h3>
     <p>
       For general enquiries please email
-      <a href="mailto:s.sasaki@qmul.ac.uk">s.sasaki@qmul.ac.uk</a>.
+      <a id="email-contact" href="#">loading…</a>.
     </p>
   </section>
 
@@ -545,9 +545,21 @@
       John Coates London&ndash;Paris Number Theory Seminar &mdash; 16&ndash;17 June 2026 &mdash; Queen Mary University of London
     </p>
     <p style="margin-top:.4rem;">
-      Contact: <a href="mailto:s.sasaki@qmul.ac.uk">s.sasaki@qmul.ac.uk</a>
+      Contact: <a id="email-footer" href="#">loading…</a>
     </p>
   </footer>
+
+  <script>
+    (function () {
+      var p = [115,46,115,97,115,97,107,105,64,113,109,117,108,46,97,99,46,117,107];
+      var addr = p.map(function(c){ return String.fromCharCode(c); }).join('');
+      var link = 'mailto:' + addr;
+      ['email-ecr','email-contact','email-footer'].forEach(function(id){
+        var el = document.getElementById(id);
+        if (el) { el.href = link; el.textContent = addr; }
+      });
+    })();
+  </script>
 
   <!-- ═══════════════════════════════════════════════════
        SIMPLE TAB SWITCHING (no framework required)
