@@ -168,6 +168,8 @@
     tr:nth-child(even):not(.talk-row):not(.talk-details) td { background: var(--light-bg); }
     .break-row td { background: var(--light-bg); color: var(--muted); font-style: italic; }
     #programme table { table-layout: fixed; }
+    #programme table th,
+    #programme table td { vertical-align: top; }
     #programme table thead th:first-child,
     #programme table tbody tr:not(.talk-details) td:first-child {
       width: 120px;
@@ -466,6 +468,11 @@
     <!-- Tuesday, 16 June -->
     <h3>Tuesday, 16 June</h3>
     <table>
+      <colgroup>
+        <col style="width:120px">
+        <col style="width:180px">
+        <col>
+      </colgroup>
       <thead><tr><th style="width:120px">Time</th><th>Speaker</th><th>Title</th></tr></thead>
       <tbody>
         <tr class="break-row"><td>09:40–10:00</td><td colspan="2">Coffee Break (Deluxe)</td></tr>
@@ -488,6 +495,11 @@
     <!-- Wednesday, 17 June -->
     <h3>Wednesday, 17 June</h3>
     <table>
+      <colgroup>
+        <col style="width:120px">
+        <col style="width:180px">
+        <col>
+      </colgroup>
       <thead><tr><th style="width:120px">Time</th><th>Speaker</th><th>Title</th></tr></thead>
       <tbody>
         <tr class="break-row"><td>09:40–10:00</td><td colspan="2">Coffee Break (Deluxe)</td></tr>
